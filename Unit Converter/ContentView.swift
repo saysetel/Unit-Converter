@@ -7,6 +7,22 @@
 
 import SwiftUI
 
+struct TitleStyle: ViewModifier {
+    var textColor: Color
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(textColor)
+            .bold()
+            .font(.title)
+    }
+}
+
+extension View {
+    func customTitle(color: Color) -> some View {
+        modifier(TitleStyle(textColor: color))
+    }
+}
+
 struct ContentView: View {
     @State private var userInput = 0.0
     
@@ -76,9 +92,7 @@ struct ContentView: View {
                         }
                     } header: {
                         Text("From")
-                            .foregroundColor(textColor)
-                            .bold()
-                            .font(.title)
+                            .customTitle(color: textColor)
                     }
                     
                     Section {
@@ -101,9 +115,7 @@ struct ContentView: View {
                         Text(output, format: .number)
                     } header: {
                         Text("To")
-                            .foregroundColor(textColor)
-                            .bold()
-                            .font(.title)
+                            .customTitle(color: textColor)
                     }
                 }
                 .scrollContentBackground(.hidden)
